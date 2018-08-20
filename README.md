@@ -1,3 +1,3 @@
 # Python_Stuff
 
-A simple repository of Python stuff.
+A simple collection of Python stuff.
