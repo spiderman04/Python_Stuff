@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>02_Admin-Demo_Login.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #000080; font-weight: bold;}
+.s1 { color: #000000;}
+.s2 { color: #008000; font-weight: bold;}
+.s3 { color: #808080; font-style: italic;}
+.ln { color: #999999; font-weight: normal; font-style: normal; }
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+02_Admin-Demo_Login.py</font>
+</center></td></tr></table>
+<pre><a name="l1"><span class="ln">1    </span></a><span class="s0">import </span>os
+<a name="l2"><span class="ln">2    </span></a><span class="s0">import </span>constants
+<a name="l3"><span class="ln">3    </span></a><span class="s0">import </span>helper_functions
+<a name="l4"><span class="ln">4    </span></a>
+<a name="l5"><span class="ln">5    </span></a><span class="s0">from </span>selenium <span class="s0">import </span>webdriver
+<a name="l6"><span class="ln">6    </span></a><span class="s0">from </span>selenium.webdriver.common.by <span class="s0">import </span>By
+<a name="l7"><span class="ln">7    </span></a>
+<a name="l8"><span class="ln">8    </span></a>local_path = os.path.dirname(__file__)
+<a name="l9"><span class="ln">9    </span></a>print(<span class="s2">&quot;Base Name: &quot; </span>+ os.path.basename(__file__))
+<a name="l10"><span class="ln">10   </span></a>print(<span class="s2">&quot;Directory Name: &quot; </span>+ os.path.dirname(__file__))
+<a name="l11"><span class="ln">11   </span></a>
+<a name="l12"><span class="ln">12   </span></a><span class="s3"># Python will look in SCRIPTS path OR specify absolute path</span>
+<a name="l13"><span class="ln">13   </span></a>driver = webdriver.Chrome(executable_path=<span class="s2">&quot;C:</span><span class="s0">\\</span><span class="s2">WebDrivers</span><span class="s0">\\</span><span class="s2">chromedriver.exe&quot;</span>, service_args=<span class="s0">None</span>)
+<a name="l14"><span class="ln">14   </span></a><span class="s3"># driver.maximize_window()</span>
+<a name="l15"><span class="ln">15   </span></a>
+<a name="l16"><span class="ln">16   </span></a>driver.get(constants.URL_ADMIN_DEMO)
+<a name="l17"><span class="ln">17   </span></a><span class="s0">assert </span>driver.title == <span class="s2">'Your store. Login'</span>
+<a name="l18"><span class="ln">18   </span></a>helper_functions.count_links(driver)
+<a name="l19"><span class="ln">19   </span></a>
+<a name="l20"><span class="ln">20   </span></a>driver.find_element(By.ID, <span class="s2">&quot;Email&quot;</span>).clear()
+<a name="l21"><span class="ln">21   </span></a>driver.find_element(By.ID, <span class="s2">&quot;Email&quot;</span>).send_keys(<span class="s2">&quot;admin@yourstore.com&quot;</span>)
+<a name="l22"><span class="ln">22   </span></a>driver.find_element(By.ID, <span class="s2">'Password'</span>).clear()
+<a name="l23"><span class="ln">23   </span></a>driver.find_element(By.ID, <span class="s2">'Password'</span>).send_keys(<span class="s2">'admin'</span>)
+<a name="l24"><span class="ln">24   </span></a>driver.find_element(By.CSS_SELECTOR, <span class="s2">'.button-1'</span>).click()
+<a name="l25"><span class="ln">25   </span></a>helper_functions.count_links(driver)
+<a name="l26"><span class="ln">26   </span></a>
+<a name="l27"><span class="ln">27   </span></a><span class="s0">try</span>:
+<a name="l28"><span class="ln">28   </span></a>    <span class="s0">assert </span>driver.title == <span class="s2">'Dashboard / nopCommerce administration'</span>
+<a name="l29"><span class="ln">29   </span></a>    print(<span class="s2">&quot;The page title is verified!&quot;</span>)
+<a name="l30"><span class="ln">30   </span></a><span class="s0">except </span>AssertionError <span class="s0">as </span>err:
+<a name="l31"><span class="ln">31   </span></a>    print(<span class="s2">&quot;The page TITLE does not match 'Dashboard / nopCommerce administration'&quot;</span>)
+<a name="l32"><span class="ln">32   </span></a>
+<a name="l33"><span class="ln">33   </span></a>driver.close()
+<a name="l34"><span class="ln">34   </span></a>driver.quit()
+<a name="l35"><span class="ln">35   </span></a></pre>
+</body>
+</html>

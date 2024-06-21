@@ -1,0 +1,95 @@
+<html>
+<head>
+<title>15_Text_Compare_in_Webpage.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #000080; font-weight: bold;}
+.s1 { color: #000000;}
+.s2 { color: #008000; font-weight: bold;}
+.s3 { color: #808080; font-style: italic;}
+.s4 { color: #0000ff;}
+.ln { color: #999999; font-weight: normal; font-style: normal; }
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+15_Text_Compare_in_Webpage.py</font>
+</center></td></tr></table>
+<pre><a name="l1"><span class="ln">1    </span></a><span class="s0">import </span>os
+<a name="l2"><span class="ln">2    </span></a><span class="s0">import </span>time
+<a name="l3"><span class="ln">3    </span></a><span class="s0">import </span>constants
+<a name="l4"><span class="ln">4    </span></a><span class="s0">import </span>helper_functions
+<a name="l5"><span class="ln">5    </span></a>
+<a name="l6"><span class="ln">6    </span></a>
+<a name="l7"><span class="ln">7    </span></a><span class="s0">from </span>selenium <span class="s0">import </span>webdriver
+<a name="l8"><span class="ln">8    </span></a><span class="s0">from </span>selenium.webdriver.chrome.service <span class="s0">import </span>Service
+<a name="l9"><span class="ln">9    </span></a><span class="s0">from </span>selenium.webdriver.common.by <span class="s0">import </span>By
+<a name="l10"><span class="ln">10   </span></a><span class="s0">from </span>selenium.webdriver.common.keys <span class="s0">import </span>Keys
+<a name="l11"><span class="ln">11   </span></a>
+<a name="l12"><span class="ln">12   </span></a><span class="s0">from </span>selenium.webdriver <span class="s0">import </span>ActionChains
+<a name="l13"><span class="ln">13   </span></a>
+<a name="l14"><span class="ln">14   </span></a>local_path = os.path.dirname(__file__)
+<a name="l15"><span class="ln">15   </span></a>print(<span class="s2">&quot;Base Name: &quot; </span>+ os.path.basename(__file__))
+<a name="l16"><span class="ln">16   </span></a>print(<span class="s2">&quot;Directory Name: &quot; </span>+ os.path.dirname(__file__))
+<a name="l17"><span class="ln">17   </span></a>
+<a name="l18"><span class="ln">18   </span></a><span class="s3"># Override the Chrome Options</span>
+<a name="l19"><span class="ln">19   </span></a>chrome_options = webdriver.ChromeOptions()
+<a name="l20"><span class="ln">20   </span></a>chrome_options.add_argument(<span class="s2">&quot;--disable-notifications&quot;</span>)
+<a name="l21"><span class="ln">21   </span></a>chrome_options.add_argument(<span class="s2">&quot;--start-fullscreen&quot;</span>)
+<a name="l22"><span class="ln">22   </span></a>chrome_options.add_argument(<span class="s2">&quot;--disable-popup-blocking&quot;</span>)
+<a name="l23"><span class="ln">23   </span></a>chrome_options.add_argument(<span class="s2">&quot;--disable-plugins&quot;</span>)
+<a name="l24"><span class="ln">24   </span></a>
+<a name="l25"><span class="ln">25   </span></a>
+<a name="l26"><span class="ln">26   </span></a><span class="s3"># Python will look in SCRIPTS path OR specify absolute path</span>
+<a name="l27"><span class="ln">27   </span></a>service_object = Service(<span class="s2">&quot;C:</span><span class="s0">\\</span><span class="s2">WebDrivers</span><span class="s0">\\</span><span class="s2">chromedriver.exe&quot;</span>)
+<a name="l28"><span class="ln">28   </span></a>driver = webdriver.Chrome(service=service_object)
+<a name="l29"><span class="ln">29   </span></a>driver.implicitly_wait(<span class="s4">20</span>)
+<a name="l30"><span class="ln">30   </span></a>
+<a name="l31"><span class="ln">31   </span></a>print(<span class="s2">&quot;Loading URL: &quot; </span>+ constants.URL_TEXT_COMPARE)
+<a name="l32"><span class="ln">32   </span></a>driver.get(constants.URL_TEXT_COMPARE)
+<a name="l33"><span class="ln">33   </span></a>print(<span class="s2">&quot;Website Title: &quot; </span>+ driver.title)
+<a name="l34"><span class="ln">34   </span></a>helper_functions.print_seperator(<span class="s4">50</span>)
+<a name="l35"><span class="ln">35   </span></a>
+<a name="l36"><span class="ln">36   </span></a>print(<span class="s2">&quot;Text Compare Example via Ctrl+A, Ctrl+C, Tab, and Ctrl+V&quot;</span>)
+<a name="l37"><span class="ln">37   </span></a><span class="s3"># Ctrl+A</span>
+<a name="l38"><span class="ln">38   </span></a>driver.find_element(By.ID, <span class="s2">&quot;inputText1&quot;</span>).clear()
+<a name="l39"><span class="ln">39   </span></a>driver.find_element(By.ID, <span class="s2">&quot;inputText1&quot;</span>).send_keys(<span class="s2">&quot;abcdefghijklmnopqrstuvqxyz&quot;</span>)
+<a name="l40"><span class="ln">40   </span></a>print(<span class="s2">&quot;Entered Text....&quot;</span>)
+<a name="l41"><span class="ln">41   </span></a>time.sleep(<span class="s4">5</span>)
+<a name="l42"><span class="ln">42   </span></a>
+<a name="l43"><span class="ln">43   </span></a>action_chain = ActionChains(driver)
+<a name="l44"><span class="ln">44   </span></a>action_chain.key_down(Keys.CONTROL).send_keys(<span class="s2">&quot;a&quot;</span>).key_up(Keys.CONTROL).perform()
+<a name="l45"><span class="ln">45   </span></a>action_chain.key_down(Keys.CONTROL).send_keys(<span class="s2">&quot;c&quot;</span>).key_up(Keys.CONTROL).perform()
+<a name="l46"><span class="ln">46   </span></a>print(<span class="s2">&quot;Copied Text....&quot;</span>)
+<a name="l47"><span class="ln">47   </span></a>
+<a name="l48"><span class="ln">48   </span></a><span class="s3"># Tab to the second control</span>
+<a name="l49"><span class="ln">49   </span></a>action_chain.send_keys(Keys.TAB).perform()
+<a name="l50"><span class="ln">50   </span></a>action_chain.key_down(Keys.CONTROL).send_keys(<span class="s2">&quot;v&quot;</span>).key_up(Keys.CONTROL).perform()
+<a name="l51"><span class="ln">51   </span></a>time.sleep(<span class="s4">5</span>)
+<a name="l52"><span class="ln">52   </span></a>print(<span class="s2">&quot;Pasted Text....&quot;</span>)
+<a name="l53"><span class="ln">53   </span></a>
+<a name="l54"><span class="ln">54   </span></a><span class="s3"># Click Compare button to accept the pasted text</span>
+<a name="l55"><span class="ln">55   </span></a>driver.find_element(By.XPATH, <span class="s2">&quot;//button[@id='compareButton']&quot;</span>).click()
+<a name="l56"><span class="ln">56   </span></a>time.sleep(<span class="s4">5</span>)
+<a name="l57"><span class="ln">57   </span></a>print(<span class="s2">&quot;Compared Text....&quot;</span>)
+<a name="l58"><span class="ln">58   </span></a>
+<a name="l59"><span class="ln">59   </span></a><span class="s3"># Get message text and verify</span>
+<a name="l60"><span class="ln">60   </span></a>user_message_text = driver.find_element(By.XPATH, <span class="s2">&quot;//span[@class='messageForUser']&quot;</span>)
+<a name="l61"><span class="ln">61   </span></a>print(<span class="s2">&quot;Comparison Text: &quot; </span>+ str(user_message_text.text))
+<a name="l62"><span class="ln">62   </span></a>
+<a name="l63"><span class="ln">63   </span></a><span class="s0">try</span>:
+<a name="l64"><span class="ln">64   </span></a>    <span class="s0">assert </span>user_message_text.text == <span class="s2">&quot;The two texts are identical!&quot;</span>
+<a name="l65"><span class="ln">65   </span></a>    print(<span class="s2">&quot;The Copy-and-Paste operation is verified!&quot;</span>)
+<a name="l66"><span class="ln">66   </span></a><span class="s0">except </span>AssertionError <span class="s0">as </span>err:
+<a name="l67"><span class="ln">67   </span></a>    print(<span class="s2">&quot;The Copy-and-Paste does not match, Web UI has a bug with Selenium.'&quot;</span>)
+<a name="l68"><span class="ln">68   </span></a>
+<a name="l69"><span class="ln">69   </span></a>helper_functions.print_seperator(<span class="s4">50</span>)
+<a name="l70"><span class="ln">70   </span></a>time.sleep(<span class="s4">2</span>)
+<a name="l71"><span class="ln">71   </span></a>
+<a name="l72"><span class="ln">72   </span></a>driver.close()
+<a name="l73"><span class="ln">73   </span></a>driver.quit()
+<a name="l74"><span class="ln">74   </span></a></pre>
+</body>
+</html>

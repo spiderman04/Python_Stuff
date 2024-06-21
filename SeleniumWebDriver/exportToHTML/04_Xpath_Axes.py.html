@@ -1,0 +1,88 @@
+<html>
+<head>
+<title>04_Xpath_Axes.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #000080; font-weight: bold;}
+.s1 { color: #000000;}
+.s2 { color: #008000; font-weight: bold;}
+.s3 { color: #808080; font-style: italic;}
+.s4 { color: #0000ff;}
+.ln { color: #999999; font-weight: normal; font-style: normal; }
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+04_Xpath_Axes.py</font>
+</center></td></tr></table>
+<pre><a name="l1"><span class="ln">1    </span></a><span class="s0">import </span>os
+<a name="l2"><span class="ln">2    </span></a><span class="s0">import </span>constants
+<a name="l3"><span class="ln">3    </span></a><span class="s0">import </span>helper_functions
+<a name="l4"><span class="ln">4    </span></a>
+<a name="l5"><span class="ln">5    </span></a><span class="s0">from </span>selenium <span class="s0">import </span>webdriver
+<a name="l6"><span class="ln">6    </span></a><span class="s0">from </span>selenium.webdriver.common.by <span class="s0">import </span>By
+<a name="l7"><span class="ln">7    </span></a>
+<a name="l8"><span class="ln">8    </span></a>local_path = os.path.dirname(__file__)
+<a name="l9"><span class="ln">9    </span></a>print(<span class="s2">&quot;Base Name: &quot; </span>+ os.path.basename(__file__))
+<a name="l10"><span class="ln">10   </span></a>print(<span class="s2">&quot;Directory Name: &quot; </span>+ os.path.dirname(__file__))
+<a name="l11"><span class="ln">11   </span></a>
+<a name="l12"><span class="ln">12   </span></a><span class="s3"># Python will look in SCRIPTS path OR specify absolute path</span>
+<a name="l13"><span class="ln">13   </span></a>driver = webdriver.Chrome(executable_path=<span class="s2">&quot;C:</span><span class="s0">\\</span><span class="s2">WebDrivers</span><span class="s0">\\</span><span class="s2">chromedriver.exe&quot;</span>, service_args=<span class="s0">None</span>)
+<a name="l14"><span class="ln">14   </span></a><span class="s3"># driver.maximize_window()</span>
+<a name="l15"><span class="ln">15   </span></a>
+<a name="l16"><span class="ln">16   </span></a>driver.get(constants.URL_MONEY_GAINERS)
+<a name="l17"><span class="ln">17   </span></a>
+<a name="l18"><span class="ln">18   </span></a><span class="s3"># XPATH AXES TYPES WE CAN USE</span>
+<a name="l19"><span class="ln">19   </span></a><span class="s3"># self (current node), parent, child, ancestor, descendant, following, following-sibling, preceding,</span>
+<a name="l20"><span class="ln">20   </span></a><span class="s3"># preceding-sibling, attribute, namespace, descendant-or-self, ancestor-or-self</span>
+<a name="l21"><span class="ln">21   </span></a>
+<a name="l22"><span class="ln">22   </span></a><span class="s3"># self</span>
+<a name="l23"><span class="ln">23   </span></a>self_node = driver.find_element(By.XPATH, <span class="s2">&quot;//a[contains(text(), 'India Tourism De')]/self::a&quot;</span>).text
+<a name="l24"><span class="ln">24   </span></a>print(<span class="s2">&quot;Self Node: &quot; </span>+ self_node)
+<a name="l25"><span class="ln">25   </span></a><span class="s0">assert </span>self_node == <span class="s2">&quot;India Tourism De&quot;</span>
+<a name="l26"><span class="ln">26   </span></a>
+<a name="l27"><span class="ln">27   </span></a><span class="s3"># parent</span>
+<a name="l28"><span class="ln">28   </span></a>parent_node = driver.find_element(By.XPATH, <span class="s2">&quot;//a[contains(text(), 'India Tourism De')]/parent::td&quot;</span>).text
+<a name="l29"><span class="ln">29   </span></a>print(<span class="s2">&quot;Parent Node of Self: &quot; </span>+ parent_node)
+<a name="l30"><span class="ln">30   </span></a><span class="s0">assert </span>self_node == <span class="s2">&quot;India Tourism De&quot;</span>
+<a name="l31"><span class="ln">31   </span></a>
+<a name="l32"><span class="ln">32   </span></a><span class="s3"># child</span>
+<a name="l33"><span class="ln">33   </span></a>child_nodes = driver.find_elements(By.XPATH, <span class="s2">&quot;//a[contains(text(), 'India Tourism De')]/ancestor::tr/child::td&quot;</span>)
+<a name="l34"><span class="ln">34   </span></a><span class="s0">for </span>child <span class="s0">in </span>child_nodes:
+<a name="l35"><span class="ln">35   </span></a>    print(<span class="s2">&quot;Child Node of Self: &quot; </span>+ str(child.text))
+<a name="l36"><span class="ln">36   </span></a>    <span class="s3">#    print(&quot;Child Node of Self: &quot; + driver.find_element(By.XPATH, child_node).text())</span>
+<a name="l37"><span class="ln">37   </span></a>
+<a name="l38"><span class="ln">38   </span></a><span class="s3"># ancestor</span>
+<a name="l39"><span class="ln">39   </span></a>ancestor_node = driver.find_element(By.XPATH, <span class="s2">&quot;//a[contains(text(), 'India Tourism De')]/ancestor::tr&quot;</span>).text
+<a name="l40"><span class="ln">40   </span></a>print(<span class="s2">&quot;Ancestor Node of Self: &quot; </span>+ ancestor_node)
+<a name="l41"><span class="ln">41   </span></a><span class="s0">assert </span>ancestor_node.__contains__(<span class="s2">&quot;India Tourism De&quot;</span>)
+<a name="l42"><span class="ln">42   </span></a>
+<a name="l43"><span class="ln">43   </span></a><span class="s3"># descendent</span>
+<a name="l44"><span class="ln">44   </span></a>descendant_nodes = driver.find_elements(By.XPATH, <span class="s2">&quot;//a[contains(text(), 'India Tourism De')]/ancestor::tr/descendant::*&quot;</span>)
+<a name="l45"><span class="ln">45   </span></a>print(<span class="s2">&quot;Number of Descendant Nodes of Self: &quot; </span>+ str(len(descendant_nodes)))
+<a name="l46"><span class="ln">46   </span></a><span class="s0">assert </span>len(descendant_nodes) == <span class="s4">7</span>, <span class="s2">&quot;Descendant nodes don't match 7&quot;</span>
+<a name="l47"><span class="ln">47   </span></a>
+<a name="l48"><span class="ln">48   </span></a><span class="s3"># following</span>
+<a name="l49"><span class="ln">49   </span></a>following_nodes = driver.find_elements(By.XPATH, <span class="s2">&quot;//a[contains(text(), 'India Tourism De')]/ancestor::tr/following::*&quot;</span>)
+<a name="l50"><span class="ln">50   </span></a>print(<span class="s2">&quot;Number of Following Nodes of Self: &quot; </span>+ str(len(following_nodes)))
+<a name="l51"><span class="ln">51   </span></a><span class="s0">assert </span>len(following_nodes) &gt; <span class="s4">0</span>, <span class="s2">&quot;There are no following nodes of Self.&quot;</span>
+<a name="l52"><span class="ln">52   </span></a>
+<a name="l53"><span class="ln">53   </span></a><span class="s3"># following-sibling</span>
+<a name="l54"><span class="ln">54   </span></a>following_nodes = driver.find_elements(By.XPATH, <span class="s2">&quot;//a[contains(text(), 'India Tourism De')]/ancestor::tr/following-sibling::tr&quot;</span>)
+<a name="l55"><span class="ln">55   </span></a>print(<span class="s2">&quot;Number of Following-Sibling Nodes of Self: &quot; </span>+ str(len(following_nodes)))
+<a name="l56"><span class="ln">56   </span></a>
+<a name="l57"><span class="ln">57   </span></a><span class="s3"># preceding</span>
+<a name="l58"><span class="ln">58   </span></a>preceding_nodes = driver.find_elements(By.XPATH, <span class="s2">&quot;//a[contains(text(), 'India Tourism De')]/ancestor::tr/preceding::tr&quot;</span>)
+<a name="l59"><span class="ln">59   </span></a>print(<span class="s2">&quot;Number of Preceding Nodes of Self: &quot; </span>+ str(len(following_nodes)))
+<a name="l60"><span class="ln">60   </span></a>
+<a name="l61"><span class="ln">61   </span></a><span class="s3"># preceding-sibling</span>
+<a name="l62"><span class="ln">62   </span></a>preceding_nodes = driver.find_elements(By.XPATH, <span class="s2">&quot;//a[contains(text(), 'India Tourism De')]/ancestor::tr/preceding-sibling::tr&quot;</span>)
+<a name="l63"><span class="ln">63   </span></a>print(<span class="s2">&quot;Number of Preceding-Sibling Nodes of Self: &quot; </span>+ str(len(following_nodes)))
+<a name="l64"><span class="ln">64   </span></a>
+<a name="l65"><span class="ln">65   </span></a>driver.close()
+<a name="l66"><span class="ln">66   </span></a>driver.quit()
+<a name="l67"><span class="ln">67   </span></a></pre>
+</body>
+</html>
