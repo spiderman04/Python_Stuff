@@ -8,11 +8,11 @@ References:
     https://openpyxl.readthedocs.io/en/latest/changes.html#id30
 """
 import sys
-
 import openpyxl
 import os
 import pyodbc
 import sys
+
 from openpyxl import Workbook as Workbook
 from openpyxl.styles import Alignment, Font, PatternFill
 
