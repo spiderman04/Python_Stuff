@@ -3,7 +3,6 @@ import random
 from pymongo import *  # or use * including binary BSON
 from bson import *
 
-
 try:
     client = MongoClient("mongodb://localhost", 27017)
     print("Connected successfully!!!")
