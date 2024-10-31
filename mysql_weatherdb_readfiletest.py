@@ -197,13 +197,13 @@ def create_min_max_temp_query_by_state():
 def main():
 
     # start with clean db
-    #drop_tables()
+    drop_tables()
 
-    # parse_raw_datafiles()
-    # create_state_tables()
-    # add_county_and_state()
-    # add_county_temp_and_date()
-    # create_count_query_descending_by_county()
+    parse_raw_datafiles()
+    create_state_tables()
+    add_county_and_state()
+    add_county_temp_and_date()
+    create_count_query_descending_by_county()
     create_min_max_temp_query_by_state()
 
 
